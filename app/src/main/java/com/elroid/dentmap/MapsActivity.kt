@@ -1,15 +1,16 @@
 package com.elroid.dentmap
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-
+import androidx.appcompat.app.AppCompatActivity
+import com.elroid.dentmap.data.DataManager
+import com.elroid.dentmap.databinding.ActivityMapsBinding
+import com.github.ajalt.timberkt.i
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
-import com.elroid.dentmap.databinding.ActivityMapsBinding
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
@@ -26,6 +27,10 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         val mapFragment = supportFragmentManager
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
+
+        val dataManager = DataManager(applicationContext)
+        val countries = dataManager.getCountries()
+        i { "Got countries:$countries" }
     }
 
     /**
