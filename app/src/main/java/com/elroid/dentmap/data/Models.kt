@@ -1,5 +1,6 @@
 package com.elroid.dentmap.data
 
+import android.location.Location
 import androidx.annotation.Keep
 
 @Keep
@@ -19,4 +20,19 @@ data class Country(
 data class Coordinate(
     var latitude: Double = 0.0,
     var longitude: Double = 0.0,
+) {
+    private val loc: Location by lazy {
+        val location = Location("generated")
+        location.latitude = latitude
+        location.longitude = longitude
+        location
+    }
+
+    private fun getDistanceMeters(coord: Coordinate) = loc.distanceTo(coord.loc)
+    fun getDistanceKilometers(loc: Coordinate) = (getDistanceMeters(loc) / 1000)
+}
+
+data class CountryWithHome(
+    val country: Country,
+    val homeCountry: Country? = null
 )

@@ -1,16 +1,15 @@
 package com.elroid.dentmap.data
 
 import android.content.Context
-import com.squareup.moshi.Moshi
-import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import com.squareup.moshi.JsonAdapter
+import com.squareup.moshi.Moshi
 import com.squareup.moshi.Types
+import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.io.BufferedReader
 import java.io.InputStream
 import java.io.InputStreamReader
-import java.lang.StringBuilder
 import java.lang.reflect.Type
 
 
@@ -24,11 +23,12 @@ class DataManager(
 
     /**
      * Niue is an outlier - we are only interested in European countries
+     * Todo: find out why London is in the Yorkshire dales! Berlin is also wrong...
      */
-    suspend fun getEuropeanCountries():List<Country> = getCountries().filter { it.isEuropean()}
+    suspend fun getEuropeanCountries(): List<Country> = getCountries().filter { it.isEuropean() }
 
     @Suppress("BlockingMethodInNonBlockingContext") //it's appropriate for IO
-    suspend fun getCountries():List<Country>{
+    suspend fun getCountries(): List<Country> {
         return withContext(Dispatchers.Default) {
             val fileName = "countries.json"
             val countriesJson = getStringFromAssets(fileName)
@@ -40,7 +40,7 @@ class DataManager(
     }
 
     @Suppress("BlockingMethodInNonBlockingContext") //it's appropriate for IO
-    private suspend fun getStringFromAssets(assetFileName:String):String{
+    private suspend fun getStringFromAssets(assetFileName: String): String {
         return withContext(Dispatchers.IO) {
             val buf = StringBuilder()
             val json: InputStream = appCtx.assets.open(assetFileName)
