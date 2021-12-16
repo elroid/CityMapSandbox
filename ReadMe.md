@@ -20,4 +20,6 @@ Some further definition would be required to properly implement this, including 
 Once the real distances are established, this problem would suggest some form of Dijkstra's algorithm to be 
 implemented. This broadly involves finding the nearest unvisited city and adding that to the path. After 3 stops, we 
 would then return to the origin. This might however involve getting further away from the origin than necessary so as a 
-preliminary step we might restrict the choice of cities to the 4 capital cities closest to the origin.
+preliminary step we might restrict the choice of cities to the 4 capital cities closest to the origin. If the user 
+is to be able to select the countries that should be considered then these rather than simply the 4 closest would 
+be used for the shortlist.
